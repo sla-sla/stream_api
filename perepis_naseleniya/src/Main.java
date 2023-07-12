@@ -15,24 +15,18 @@ public class Main {
                     Education.values()[new Random().nextInt(Education.values().length)])
             );
         }
-        long stream = persons.stream()
+                 persons.stream()
                 .filter(x -> x.getAge() < 18)
                 .count();
 
-        List<String> stream2 = persons.stream()
+                persons.stream()
                 .filter(x -> x.getAge() > 18 && x.getAge() < 27)
                 .map(x -> x.getFamily())
                 .collect(Collectors.toList());
 
-        List<Person> stream3 = persons.stream()
-                .filter(x -> x.getEducation().equals(Education.HIGHER))
-                .filter(x -> {
-                    if (x.getSex().equals(Sex.MAN)) {
-                        return x.getAge() > 18 && x.getAge() < 65;
-                    } else {
-                        return x.getAge() > 18 && x.getAge() < 60;
-                    }
-                })
+                persons.stream()
+                .filter(x -> x.getAge() > 18)
+                .filter(x -> x.getAge() < (x.getSex().equals(Sex.MAN) ? 65 :  60))
                 .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
     }
